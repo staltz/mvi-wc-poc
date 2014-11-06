@@ -1,0 +1,151 @@
+<!--
+Copyright (c) 2014, Futurice Oy.
+All rights reserved.
+
+License available at
+https://github.com/futurice-oss/futu-process-arrow/blob/master/LICENSE.txt
+
+
+Example usage:
+<futu-process-arrow
+  selected="3">
+  <span>Baby</span>
+  <span>Child</span>
+  <span>Teenager</span>
+  <span>Working-class hero</span>
+  <span>Retired</span>
+</futu-process-arrow>
+
+You style the process arrow by setting for example the height, color, font,
+text-align and so on for the element itself.
+
+See the demo page for a live example on styling:
+http://futurice-oss.github.io/futu-process-arrow/
+-->
+
+<!--
+@element futu-process-arrow
+@status beta
+-->
+<polymer-element name="futu-process-arrow" attributes="selected">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #container {
+        height: 100%;
+      }
+
+      .stage-element {
+        position: relative;
+        margin: 0 2px 0 0;
+        padding: 0 0.8em;
+        font-size: 0.7em;
+      }
+
+      .stage-element p {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: currentColor;
+      }
+
+      .stage-element[highlighted] p {
+        color: #fff;
+      }
+
+      .stage-element::before, .stage-element::after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 50%;
+        width: 100%;
+        background-color: rgba(0,0,0,0.1);
+        left: 0;
+      }
+
+      .stage-element::before {
+        top: 0;
+        -webkit-transform: skew(30deg);
+        -moz-transform: skew(30deg);
+        transform: skew(30deg);
+      }
+
+      .stage-element::after {
+        bottom: 0;
+        -webkit-transform: skew(-30deg);
+        -moz-transform: skew(-30deg);
+        transform: skew(-30deg);
+      }
+
+      .stage-element[highlighted]::before, .stage-element[highlighted]::after {
+        background-color: currentColor;
+      }
+
+      .stage-element:last-child {
+        margin-right: 0;
+      }
+
+      .stage-element core-tooltip {
+        max-width: 100%;
+      }
+
+      #stages {
+        display: none;
+      }
+
+    </style>
+    <div id="container" layout horizontal>
+      <template repeat="{{stage in stages}}">
+          <div
+            class="stage-element" flex layout horizontal center
+            highlighted?="{{ activeStages[stage] }}"
+            title="{{ stage }}">
+            <p>{{ stage }}</p>
+          </div>
+      </template>
+
+      <div id="stages" selected="{{ selected }}">
+        <content select="*"></content>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer('futu-process-arrow', {
+      created: function(){
+        this.stages = [];
+      },
+      ready: function(){
+        this.childrenUpdated();
+      },
+      childrenUpdated: function(observer, mutations){
+        var self = this,
+          nodes = this.querySelectorAll("span");
+
+        [].forEach.call(nodes, function(node){
+          var clone = document.importNode(node, true);
+          self.stages.push(clone.textContent);
+        });
+
+        // Listen for new changes
+        this.onMutation(this, this.childrenUpdated);
+      },
+      selectedChanged: function(){
+        this.activeStages = {};
+        if (this.stages) {
+          for (var i = 0; i < this.stages.length; i++) {
+            if (i <= this.selected) {
+              this.activeStages[this.stages[i]] = true;
+            }
+          }
+        }
+      }
+    });
+  </script>
+</polymer-element>

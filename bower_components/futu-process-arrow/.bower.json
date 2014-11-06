@@ -1,0 +1,30 @@
+{
+  "name": "futu-process-arrow",
+  "version": "0.3.0",
+  "homepage": "https://github.com/futurice-oss/futu-process-arrow",
+  "authors": [
+    "Futurice Oy"
+  ],
+  "license": "BSD (3-clause)",
+  "main": "futu-process-arrow.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.4"
+  },
+  "_release": "0.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.3.0",
+    "commit": "45bf027efb1ceed633299e8eb95e482fa3185e47"
+  },
+  "_source": "git://github.com/futurice/futu-process-arrow.git",
+  "_target": "~0.3.0",
+  "_originalSource": "futurice/futu-process-arrow",
+  "_direct": true
+}
