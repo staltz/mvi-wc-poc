@@ -1,0 +1,21 @@
+{
+  "name": "mvi-wc-poc",
+  "version": "0.1.0",
+  "authors": [
+    "Andre Staltz <andrestaltz@gmail.com>"
+  ],
+  "description": "MVI Web Components Proof-of-Concept",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "futu-process-arrow": "futurice/futu-process-arrow#~0.3.0"
+  }
+}
